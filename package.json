@@ -8,6 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "axios": "^0.15.3",
     "connect-mongo": "^1.3.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
@@ -21,11 +22,18 @@
   "devDependencies": {
     "babel": "^6.5.2",
     "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
     "babel-jest": "^18.0.0",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "enzyme": "^2.7.0",
+    "eslint": "^3.12.2",
+    "eslint-config-react-app": "^0.5.0",
+    "eslint-plugin-flowtype": "^2.29.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-react": "^6.8.0",
     "flow-bin": "^0.37.4",
     "html-webpack-plugin": "^2.24.1",
     "jest": "^18.0.0",
@@ -33,6 +41,17 @@
     "webpack": "^1.14.0"
   },
   "jest": {
-    "testPathDirs": ["test"]
+    "testPathDirs": [
+      "test"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
+    ]
+  },
+  "eslintconfig": {
+    "extends": "react-app"
   }
 }

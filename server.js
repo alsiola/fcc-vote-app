@@ -26,6 +26,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 require('./routes/static')(app);
+require('./routes/api')(app);
 require('./routes/auth')(app, passport);
 
 app.use(express.static('build'));
