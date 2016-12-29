@@ -1,12 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import App from './App';
 
-class App extends React.Component {
-    render() {
-        return (
-            <div>This is a react app</div>
-        );
-    }
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App message='AWY is excellent' />, document.getElementById('root'));
