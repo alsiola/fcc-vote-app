@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 
 require('dotenv').load();
 
@@ -25,11 +26,15 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(bodyParser.json());
+
 require('./routes/static')(app);
 require('./routes/api')(app);
 require('./routes/auth')(app, passport);
 
 app.use(express.static('build'));
+
+app.use((req, res) => res.redirect('/'));
 
 app.listen(process.env.PORT || 3000, process.env.IP || "0.0.0.0", function(){
     console.log("Server listening at", process.env.IP + ":" + process.env.PORT);

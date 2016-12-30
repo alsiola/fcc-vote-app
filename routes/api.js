@@ -1,3 +1,5 @@
+const poll = require('../model/Poll');
+
 module.exports = function (app) {
 
 	function isLoggedIn (req, res, next) {
@@ -9,6 +11,21 @@ module.exports = function (app) {
 	}
 
 	app.get('/api/currentuser', isLoggedIn, function (req, res) {
-		res.json({name : req.user.github.displayName});
+		res.json({user : req.user});
 	});
+
+	app.post('/api/poll', isLoggedIn, (req, res) => {
+		const newPoll = new poll(req.body);
+		newPoll.save(err => {
+			if (err) {
+				res.json({ success: false });
+			}
+
+			res.json({
+				success: true,
+				localPoll: req.body,
+				dbPoll: newPoll
+			})
+		})
+	})
 };

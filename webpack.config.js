@@ -3,6 +3,8 @@ var fs = require('fs');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
+    debug:true,
+    devtool: 'eval-source-map',
     entry: './src/js/index.js',
     output: {
         filename: 'bundle.js',
