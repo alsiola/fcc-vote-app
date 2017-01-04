@@ -7,13 +7,7 @@ var User = new Schema({
 		displayName: String,
 		username: String
 	},
-	polls: [{
-		question: String,
-		answers: [{
-			answer: String,
-			votes: Number
-		}]
-	}]
+	polls: [{type: Schema.Types.ObjectId, ref: 'Poll'}]
 });
 
 module.exports = mongoose.model('User', User);
