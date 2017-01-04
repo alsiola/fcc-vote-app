@@ -1,10 +1,11 @@
 // @flow
 import React from 'react';
+import {Link} from 'react-router';
 import {Navbar, Nav, NavItem, MenuItem} from 'react-bootstrap';
 import NavLink from './NavLink';
 
 export default class NavBar extends React.Component {
-    componentWillMount() {
+    componentDidMount() {
         this.props.getCurrentUser();
     }
 
@@ -13,13 +14,13 @@ export default class NavBar extends React.Component {
             <Navbar>
                 <Navbar.Header>
                 <Navbar.Brand>
-                    <a href="#">Let's Vote!</a>
+                    <Link to="/">Let's Vote!</Link>
                 </Navbar.Brand>
                 </Navbar.Header>
-                <Navbar.Text pullRight>Signed in as {this.props.username}</Navbar.Text>
+                <Navbar.Text pullRight>Signed in as {this.props.user.github.displayName}</Navbar.Text>
                 <Nav pullRight>
-                    <NavLink to="/poll/new">New Poll</NavLink>
-                    <NavItem eventKey={2} href="#">Your Polls</NavItem>
+                    <NavLink to="/polls/new">New Poll</NavLink>
+                    <NavLink to="/polls/user">Your Polls</NavLink>
                 </Nav>
             </Navbar>
         );

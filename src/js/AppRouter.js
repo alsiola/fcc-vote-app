@@ -1,17 +1,21 @@
 // @flow
 import React from 'react';
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import Layout from './Layout';
 import Home from './Home/Home'
 import NewPollConnect from './NewPoll/NewPollConnect';
+import YourPollsConnect from './YourPolls/YourPollsConnect';
+import PollResultsConnect from './PollResults/PollResultsConnect';
 
 export default class AppRouter extends React.Component {
     render() {
         return (
-            <Router history={hashHistory}>
+            <Router history={browserHistory}>
                 <Route path="/" component={Layout}>
                     <IndexRoute component={Home} />
-                    <Route path="/poll/new" component={NewPollConnect} />
+                    <Route path="/polls/new" component={NewPollConnect} />
+                    <Route path="/polls/user" component={YourPollsConnect} />
+                    <Route path="/polls/view/:pollId" component={PollResultsConnect} />
                 </Route>
             </Router>
         );
