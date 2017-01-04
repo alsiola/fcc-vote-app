@@ -3,6 +3,7 @@ var app = express();
 var passport = require('passport');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
+var path = require('path');
 
 require('dotenv').load();
 
@@ -15,7 +16,7 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
  
 app.use(session({
-    secret: 'process.env.SESSION_SECRET',
+    secret: process.env.SESSION_SECRET,
     store: new MongoStore({ 
       mongooseConnection: mongoose.connection
     }),
@@ -28,11 +29,11 @@ app.use(passport.session());
 
 app.use(bodyParser.json());
 
-require('./routes/static')(app);
+app.use(express.static(path.resolve(__dirname, 'build')));
+
 require('./routes/api')(app);
 require('./routes/auth')(app, passport);
-
-app.use(express.static('build'));
+require('./routes/static')(app);
 
 app.use((req, res) => res.redirect('/'));
 
