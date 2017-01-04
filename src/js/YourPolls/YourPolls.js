@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router';
+import PollCard from '../Common/PollCard';
+import {Grid} from 'react-bootstrap';
 
 export default class YourPolls extends React.Component {
     componentDidMount() {
@@ -8,13 +9,14 @@ export default class YourPolls extends React.Component {
 
     render() {
         const polls = this.props.userPolls.map((poll, i) => (
-            <li key={i}><Link to={"/polls/view/" + poll._id}>{poll.question}</Link></li>
+            <PollCard key={i} poll={poll} showDelete />
         ));
 
         return (
-          <ul>
-            {polls}
-          </ul>
+            <Grid>
+                <h2>Your Polls</h2>
+                {polls}
+            </Grid>
         );
     }
 }

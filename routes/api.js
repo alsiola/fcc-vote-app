@@ -1,5 +1,6 @@
 var user = require('../model/User');
 var poll = require('../model/Poll');
+var ObjectId = require('mongodb').ObjectID;
 
 module.exports = function (app) {
 
@@ -29,6 +30,7 @@ module.exports = function (app) {
 		newPoll.save(err => {
 			if (err) {
 				sendError(res, err);
+				return;
 			}
 
 			req.user.polls.push(newPoll);
@@ -36,7 +38,7 @@ module.exports = function (app) {
 
 			res.json({
 				success: true,
-				polls: req.user.polls
+				poll: newPoll
 			});				
 		});
 	});
@@ -45,10 +47,12 @@ module.exports = function (app) {
 		poll.find(
 		{
 			_creator: req.user._id
-		}, 
-		(err, polls) => {
+		})
+		.sort('-creation_date')
+		.exec((err, polls) => {
 			if (err) {
 				sendError(res, err);
+				return;
 			}
 
 			res.json({
@@ -61,11 +65,50 @@ module.exports = function (app) {
 		poll.findById(req.params.pollId, (err, result) => {
 			if (err) {
 				sendError(res, err);
+				return;
 			}
 			
 			res.json({
 				poll: result
 			});
 		})
+	});
+
+	app.post('/api/polls/delete/:pollId', isLoggedIn, (req, res) => {
+		console.log(req.params.pollId);
+		poll.findOneAndRemove({
+			_id: ObjectId(req.params.pollId),
+			_creator: req.user._id
+		}, (err, deletedPoll) => {
+			if(err) {
+				sendError(res, err);
+				return;
+			}
+
+			res.json(
+				{
+					success: true,
+					deletedPoll: deletedPoll
+				}
+			);
+		});
+	})
+
+	app.get('/api/polls/:start/:limit', (req, res) => {
+		poll
+			.find({})
+			.sort('-creation_date')
+			.skip(Number(req.params.start))
+			.limit(Number(req.params.limit))
+			.exec((err, polls) => {
+				if (err) {
+					sendError(res, err);
+					return;
+				}
+
+				res.json({
+					polls: polls
+				});
+			});
 	})
 };

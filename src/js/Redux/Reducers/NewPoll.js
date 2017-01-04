@@ -5,15 +5,16 @@ import update from 'react-addons-update';
 
 const initialState = {
     question: '',
-    answers: []
+    answers: [],
+    isSaving: false,
+    saveSuccess: false,
+    failedSave: false,
+    errorMsg: ''
 };
 
 const emptyAnswer = {
     answer: '',
-    votes: 0,
-    isSaving: false,
-    saveSuccess: false,
-    failedSave: false
+    votes: 0
 };
 
 export default function NewPoll(state = initialState, action) {
@@ -43,7 +44,8 @@ export default function NewPoll(state = initialState, action) {
         case actions.NEW_POLL_SAVED:
             return handle(state, action, {
                 start: s => update(s, {
-                    isSaving: {$set : true}
+                    isSaving: {$set : true},
+                    errorMsg: {$set: ''}
 
                 }),
                 success: s => update(initialState, {
@@ -52,7 +54,8 @@ export default function NewPoll(state = initialState, action) {
                 }),
                 failure : s => update(s, {
                     isSaving: {$set : false},
-                    failedSave: {$set: true}
+                    failedSave: {$set: true},
+                    errorMsg: {$set: payload.data.error}
                 })
             });
         default:

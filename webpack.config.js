@@ -15,14 +15,14 @@ module.exports = {
         preloaders: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|bower_component|build)/,
                 loader: 'eslint'
             }
         ],
         loaders: [
             {
                 test: /\.(js|jsx)$/,
-                exclude: /(node_modules|bower_components)/,
+                exclude: /(node_modules|bower_components|build)/,
                 loader: 'babel-loader',
                 query: {
                     presets: ['es2015', 'react']
@@ -35,6 +35,10 @@ module.exports = {
             { 
                 test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, 
                 loader: "file-loader" 
+            },
+            {
+                test: /\.scss$/,
+                loaders: ["style-loader", "css-loader", "sass-loader"]
             }
         ]
     },
