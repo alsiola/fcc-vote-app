@@ -1,12 +1,12 @@
 // @flow
 import React from 'react';
-import Navigation from './Navbar/Navigation';
+import NavBarConnect from './Navbar/NavBarConnect';
 
 export default class Layout extends React.Component {
     render() {
         return (
             <div>
-                <Navigation />
+                <NavBarConnect />
                 {this.props.children}
             </div>
         );
