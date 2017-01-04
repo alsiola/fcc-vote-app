@@ -1,9 +1,14 @@
 import * as actions from '../Actions';
+import { handle } from 'redux-pack';
 
 export default function User(state = defaultUser, action) {
-    switch (action.type) {
+    const { type, payload } = action;
+
+    switch (type) {
         case actions.USER_LOGGED_IN:
-            return action.user;
+            return handle(state, action, {
+                success: s => ( payload.data.user )
+            });
         default:
             return state;
     }

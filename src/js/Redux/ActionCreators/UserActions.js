@@ -1,9 +1,11 @@
 import * as actions from '../Actions';
+import axios from 'axios';
 
-export function userLoggedIn(user) {
-    console.log(user);
-    return {
+export const getCurrentUser = () => dispatch => {
+    dispatch({
         type: actions.USER_LOGGED_IN,
-        user
-    }
+        promise: axios.get('/api/currentuser')
+    });
 }
+
+        

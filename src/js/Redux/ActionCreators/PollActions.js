@@ -1,23 +1,9 @@
 import * as actions from '../Actions';
+import axios from 'axios';
 
-export function localPollCreated(poll) {
-    return {
-        type: actions.LOCAL_POLL_CREATED,
-        poll
-    }
-}
-
-export function localPollSaved(localPoll, dbPoll) {
-    return {
-        type: actions.LOCAL_POLL_SAVED,
-        localPoll,
-        dbPoll
-    }
-}
-
-export function localPollSaveFailed() {
-    return {
-        type: actions.LOCAL_POLL_CREATED,
-        poll
-    }
+export const getAllUserPolls = () => dispatch => {
+    dispatch({
+        type: actions.USER_POLLS_LOADED,
+        promise: axios.get('/api/polls/user')
+    })
 }
