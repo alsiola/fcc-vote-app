@@ -9,8 +9,8 @@ export default class Home extends React.Component {
     }
 
     render() {
-        const pollRows = this.props.polls.map(poll => (
-            <PollCard poll={poll} />
+        const pollRows = this.props.polls.map((poll, i) => (
+            <PollCard key={i} poll={poll} />
         ))
 
         return (

@@ -8,7 +8,10 @@ module.exports = function (app) {
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
-			res.redirect('/login');
+			res.json({
+				success:false,
+				error: 'not-authenticated'
+			});
 		}
 	}
 
@@ -19,8 +22,17 @@ module.exports = function (app) {
 		});
 	}
 
-	app.get('/api/currentuser', isLoggedIn, function (req, res) {
-		res.json({user : req.user});
+	app.get('/api/currentuser', function (req, res) {
+		if (req.isAuthenticated()) {
+			res.json({
+				success: true,
+				user : req.user
+			});
+		} else {
+			res.json({
+				success: false
+			});
+		}
 	});
 
 	app.post('/api/polls/new', isLoggedIn, (req, res) => {

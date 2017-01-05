@@ -22,7 +22,7 @@ module.exports = function (app) {
 			res.redirect('/login');
 		});		
 
-	app.get('*', isLoggedIn, function (req, res) {
+	app.get('*', function (req, res) {
 		res.sendFile(path + '/build/index.html');
 	});
 };
