@@ -14,7 +14,7 @@ const initialState = {
 
 const emptyAnswer = {
     answer: '',
-    votes: 0
+    votes: []
 };
 
 export default function NewPoll(state = initialState, action) {

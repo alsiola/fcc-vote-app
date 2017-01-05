@@ -6,6 +6,7 @@ import HomeConnect from './Home/HomeConnect'
 import NewPollConnect from './NewPoll/NewPollConnect';
 import YourPollsConnect from './YourPolls/YourPollsConnect';
 import PollResultsConnect from './PollResults/PollResultsConnect';
+import Login from './Login/Login';
 
 export default class AppRouter extends React.Component {
     render() {
@@ -16,6 +17,7 @@ export default class AppRouter extends React.Component {
                     <Route path="/polls/new" component={NewPollConnect} />
                     <Route path="/polls/user" component={YourPollsConnect} />
                     <Route path="/polls/view/:pollId" component={PollResultsConnect} />
+                    <Route path="/login" component={Login} />
                 </Route>
             </Router>
         );

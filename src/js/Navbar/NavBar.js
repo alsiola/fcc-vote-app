@@ -10,8 +10,12 @@ export default class NavBar extends React.Component {
     }
 
     render() {
+        const signedInBar = (
+            <span>Signed in as {this.props.user.github.displayName} <a href='/logout'>(Logout)</a></span>
+        );
+
         const signInBar = (
-                this.props.user.authenticated ? <span>Signed in as {this.props.user.github.displayName} <a href='/logout'>(Logout)</a></span> : <a href="/login">Login</a>            
+                <Link to="/login">Login</Link>            
         );
 
         return (
@@ -22,7 +26,7 @@ export default class NavBar extends React.Component {
                 </Navbar.Brand>
                 </Navbar.Header>                
                 <Navbar.Text pullRight>
-                    {signInBar}
+                    {this.props.user.authenticated ? signedInBar : signInBar}
                 </Navbar.Text>
                 {this.props.user.authenticated &&
                 <Nav pullRight>

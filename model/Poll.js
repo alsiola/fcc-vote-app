@@ -10,7 +10,7 @@ var Poll = new Schema({
     question: String,
     answers: [{
         answer: String,
-        votes: Number
+        votes: [String]
     }]    
 });
 

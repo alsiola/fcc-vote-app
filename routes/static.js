@@ -9,12 +9,7 @@ module.exports = function (app) {
 		} else {
 			res.redirect('/login');
 		}
-	}	
-
-	app.route('/login')
-		.get(function (req, res) {
-			res.sendFile(path + '/build/login.html');
-		});
+	}
 
 	app.route('/logout')
 		.get(function (req, res) {

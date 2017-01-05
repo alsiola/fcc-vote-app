@@ -2,7 +2,7 @@ import React from 'react';
 import connect from '../Redux/connect';
 import { deletePoll, showDeletePollConfirm, cancelDelete } from '../Redux/ActionCreators/PollActions';
 import { LinkContainer } from 'react-router-bootstrap';
-import { ButtonToolbar, Button, Panel } from 'react-bootstrap';
+import { Row, Col, ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import Fa from 'react-fontawesome';
 
 class PollCard extends React.Component {
@@ -32,26 +32,39 @@ class PollCard extends React.Component {
                 Not Really
             </Button>
         );
+
         const deleteConfirm = (
             <Button bsStyle="danger" onClick={() => this.props.deletePoll(this.props.poll._id)}>
                 Seriously Delete!
             </Button>
         );
 
+        const answers = this.props.poll.answers.map(answer => (
+            <Button bsSize="large">{answer.answer}</Button>
+        ));
+
+        const date = new Date(this.props.poll.creation_date).toUTCString();
+
         return (
-            <Panel>
-                <h3>{this.props.poll.question}</h3>
-                <h5>{this.props.poll.answers.length} options to choose from!</h5>
-                <ButtonToolbar>
-                    <LinkContainer to={"/polls/view/" + this.props.poll._id}>
-                        <Button bsStyle="primary">
-                            View Results
-                        </Button>
-                    </LinkContainer>
-                    {this.props.showDelete && !this.state.confirmDelete && deleteButton}                      
-                    {this.props.showDelete && this.state.confirmDelete && deleteCancel}                  
-                    {this.props.showDelete && this.state.confirmDelete && deleteConfirm}
-                </ButtonToolbar>
+            <Panel bsStyle="info" header={date} >
+                <Row className="text-center">
+                    <ButtonToolbar className="center">
+                        <h4>{this.props.poll.question}</h4>
+                        {answers}
+                    </ButtonToolbar>
+                </Row>
+                <Row className="text-center">
+                    <ButtonToolbar className="center">
+                        <LinkContainer to={"/polls/view/" + this.props.poll._id}>
+                            <Button bsStyle="primary">
+                                View Results
+                            </Button>
+                        </LinkContainer>
+                        {this.props.showDelete && !this.state.confirmDelete && deleteButton}                      
+                        {this.props.showDelete && this.state.confirmDelete && deleteCancel}                  
+                        {this.props.showDelete && this.state.confirmDelete && deleteConfirm}
+                    </ButtonToolbar>
+                </Row>
             </Panel>
         );   
     }
