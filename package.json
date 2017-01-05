@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server",
-    "test": "jest"
+    "start": "node server/server",
+    "dev": "nodemon server/server",
+    "test": "jest",
+    "webpack-dev": "webpack -w --config build-config/webpack.config.dev.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
