@@ -8,3 +8,4 @@ export const NEW_POLL_SAVED = "NEW_POLL_SAVED";
 export const POLL_LOADED = "POLL_LOADED";
 export const POLLS_LOADED = "POLLS_LOADED";
 export const DELETE_POLL = "DELETE_POLL";
+export const VOTE_CAST = "VOTE_CAST";

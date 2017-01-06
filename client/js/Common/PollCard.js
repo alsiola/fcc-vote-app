@@ -1,6 +1,7 @@
 import React from 'react';
 import connect from '../Redux/connect';
-import { deletePoll, showDeletePollConfirm, cancelDelete } from '../Redux/ActionCreators/PollActions';
+import { deletePoll, castVote } from '../Redux/ActionCreators/PollActions';
+import userVoteToken from '../Redux/Selectors/UserVoteToken';
 import { LinkContainer } from 'react-router-bootstrap';
 import { Row, Col, ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import Fa from 'react-fontawesome';
@@ -39,9 +40,15 @@ class PollCard extends React.Component {
             </Button>
         );
 
-        const answers = this.props.poll.answers.map(answer => (
-            <Button bsSize="large">{answer.answer}</Button>
-        ));
+        const allowedToVote = this.props.poll.answers.reduce((result, answer) => {
+            return result && answer.votes.indexOf(this.props.userVoteToken) < 0
+        }, true);
+
+        const answers = this.props.poll.answers.map((answer, i) => {
+            return (
+                <Button key={i} disabled={!allowedToVote} bsSize="large" onClick={() => this.props.castVote(this.props.poll._id, answer._id)}>{answer.answer}</Button>
+            );
+        });
 
         const date = new Date(this.props.poll.creation_date).toUTCString();
 
@@ -72,9 +79,12 @@ class PollCard extends React.Component {
 };
 
 export default connect(
-    null,
     {
-        deletePoll
+        userVoteToken
+    },
+    {
+        deletePoll,
+        castVote
     }
 )(PollCard);
     

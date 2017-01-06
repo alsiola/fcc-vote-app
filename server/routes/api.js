@@ -91,7 +91,8 @@ module.exports = function (app) {
 		poll.findOneAndRemove({
 			_id: ObjectId(req.params.pollId),
 			_creator: req.user._id
-		}, (err, deletedPoll) => {
+		}, 
+		(err, deletedPoll) => {
 			if(err) {
 				sendError(res, err);
 				return;
@@ -103,6 +104,54 @@ module.exports = function (app) {
 					deletedPoll: deletedPoll
 				}
 			);
+		});
+	});
+
+	app.post('/api/polls/vote/:pollId/:answerId', (req, res) => {
+		const voteMarker = req.isAuthenticated() ? req.user._id.toString() : req.ip;
+
+		poll.findOne({
+			_id: ObjectId(req.params.pollId)
+		})
+		.then(dbPoll => {
+
+			const answers = dbPoll.answers.filter(answer => answer._id.equals(ObjectId(req.params.answerId)));
+
+			const answer = answers[0];
+
+			if (answers.length === 0 ) {
+				throw "Answer not found";
+			}
+
+			if (answers.length > 1 ) {
+				throw "Duplicate answer id";
+			}
+
+			const hasAlreadyVoted = 
+				dbPoll.answers
+				.reduce((votes, a) => votes.concat(a.votes), [])
+				.filter(vote => vote === voteMarker || vote === req.ip)
+				.length > 0;
+
+			if (hasAlreadyVoted) {
+				throw "Already voted";
+			}
+
+			answer.votes.push(voteMarker);
+
+			dbPoll.save()
+			.then(() => {
+				console.log("done");
+				res.json({
+					success: true,
+					poll: dbPoll
+				});
+			}).catch(err => {
+				throw err;
+			});
+
+		}).catch(err => {
+			sendError(res, err);
 		});
 	})
 

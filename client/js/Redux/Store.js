@@ -11,4 +11,4 @@ const store = createStore(
     applyMiddleware(thunk, reduxPackMiddleware, logger)
 );
 
-export default store
+export default store;

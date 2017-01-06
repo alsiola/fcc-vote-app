@@ -1,6 +1,6 @@
 import * as actions from '../Actions';
 import { handle } from 'redux-pack';
-import { Except } from '../Utils/JsLinq';
+import { Except, IndexWhere } from '../Utils/JsLinq';
 
 export default function AllPolls(state = [], action) {
     const { type, payload } = action;
@@ -22,6 +22,17 @@ export default function AllPolls(state = [], action) {
             return handle(state, action, {
                 success: s => Except(s, [payload.data.deletedPoll], (a, b) => a._id === b._id)
             });
+        case actions.VOTE_CAST:
+            return handle(state, action, {
+                success: s => {
+                    if (payload.data.success) {
+                        return [...Except(s, [payload.data.poll], (a, b) => a._id === b._id), payload.data.poll].sort((a,b) => {
+                            return new Date(b.creation_date) - new Date(a.creation_date);
+                        });
+                    }
+                    return s;
+                }
+            })
         default:
             return state;
     }
