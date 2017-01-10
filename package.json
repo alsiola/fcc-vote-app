@@ -7,7 +7,8 @@
     "start": "node server/server",
     "dev": "nodemon server/server",
     "test": "jest",
-    "webpack-dev": "webpack -w --config build-config/webpack.config.dev.js"
+    "webpack-dev": "webpack -w --config build-config/webpack.config.dev.js",
+    "postinstall": "webpack --config build-config/webpack.config.prod.js"
   },
   "dependencies": {
     "axios": "^0.15.3",
