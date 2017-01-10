@@ -12,7 +12,7 @@ export default function User(state = defaultUser, action) {
                         return Object.assign({}, payload.data.user, {authenticated : true});
                     }
                     
-                    return defaultUser;
+                    return Object.assign({}, defaultUser, {ip: payload.data.ip});
                 }
             });
         default:
@@ -21,8 +21,5 @@ export default function User(state = defaultUser, action) {
 }
 
 const defaultUser = {
-    github : {
-        displayName: "user"
-    },
     authenticated: false
 }

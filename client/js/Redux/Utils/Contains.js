@@ -13,7 +13,7 @@ export function Contains<T>(objectToFind : T, comparer : (x : T, y : T) => boole
 
     while (++i < this.length) {
         if (comparer(objectToFind, this[i])) {
-            return true;;
+            return true;
         }
     }
 

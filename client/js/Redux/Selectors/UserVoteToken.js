@@ -3,5 +3,5 @@ export default state => {
         return state.User._id;
     }
 
-    return "dummyIpAddress";
+    return state.User.ip;
 }

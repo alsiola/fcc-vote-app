@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config build-config/webpack.config.prod.js",
     "start": "node server/server",
     "dev": "nodemon server/server",
     "test": "jest",
@@ -11,6 +12,7 @@
   "dependencies": {
     "axios": "^0.15.3",
     "body-parser": "^1.15.2",
+    "chart.js": "1.1.1",
     "connect-mongo": "^1.3.2",
     "dotenv": "^2.0.0",
     "express": "^4.14.0",
@@ -24,6 +26,7 @@
     "react": "^15.4.1",
     "react-addons-update": "^15.4.1",
     "react-bootstrap": "^0.30.7",
+    "react-chartjs": "^0.8.0",
     "react-dom": "^15.4.1",
     "react-fontawesome": "^1.5.0",
     "react-redux": "^5.0.1",
@@ -44,7 +47,8 @@
     "babel-preset-react": "^6.16.0",
     "css-loader": "^0.26.1",
     "enzyme": "^2.7.0",
-    "eslint": "^3.12.2",
+    "eslint": "^3.13.0",
+    "eslint-config-airbnb": "^14.0.0",
     "eslint-config-react-app": "^0.5.0",
     "eslint-plugin-flowtype": "^2.29.1",
     "eslint-plugin-import": "^2.2.0",
@@ -68,8 +72,5 @@
       "es2015",
       "react"
     ]
-  },
-  "eslintconfig": {
-    "extends": "react-app"
   }
 }

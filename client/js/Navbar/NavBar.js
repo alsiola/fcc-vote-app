@@ -11,7 +11,7 @@ export default class NavBar extends React.Component {
 
     render() {
         const signedInBar = (
-            <span>Signed in as {this.props.user.github.displayName} <a href='/logout'>(Logout)</a></span>
+            <span>Signed in as {this.props.user.authenticated && this.props.user.github.displayName} <a href='/logout'>(Logout)</a></span>
         );
 
         const signInBar = (

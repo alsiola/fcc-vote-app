@@ -67,6 +67,11 @@ class PollCard extends React.Component {
                                 View Results
                             </Button>
                         </LinkContainer>
+                        
+                        {!allowedToVote &&
+                            <div>You have voted!</div>    
+                        }
+                        
                         {this.props.showDelete && !this.state.confirmDelete && deleteButton}                      
                         {this.props.showDelete && this.state.confirmDelete && deleteCancel}                  
                         {this.props.showDelete && this.state.confirmDelete && deleteConfirm}
