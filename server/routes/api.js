@@ -109,7 +109,7 @@ module.exports = function (app) {
 	});
 
 	app.post('/api/polls/vote/:pollId/:answerId', (req, res) => {
-		const voteMarker = req.isAuthenticated() ? req.user._id.toString() : req.ip;
+		const voteMarker = req.isAuthenticated() ? req.user._id.toString() : req.headers['x-forwarded-for'];
 
 		poll.findOne({
 			_id: ObjectId(req.params.pollId)
