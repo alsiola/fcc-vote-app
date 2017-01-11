@@ -8,7 +8,7 @@ const { TwitterShareButton } = ShareButtons;
 export default props => (
     <TwitterShareButton url={props.url} title={props.title}>
         <Button bsStyle="primary">
-            <Fa name="facebook" size="2x" />
+            <Fa name="twitter" size="2x" />
             Share on Twitter
         </Button>
     </TwitterShareButton>
