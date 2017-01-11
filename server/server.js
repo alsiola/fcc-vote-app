@@ -14,6 +14,8 @@ mongoose.Promise = global.Promise;
 
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
+
+app.enable('trust_proxy');
  
 app.use(session({
     secret: process.env.SESSION_SECRET,
