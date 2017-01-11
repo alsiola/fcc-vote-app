@@ -31,7 +31,7 @@ module.exports = function (app) {
 		} else {
 			res.json({
 				success: false,
-				ip: req.ip
+				ip: req.headers['x-forwarded-for']
 			});
 		}
 	});
